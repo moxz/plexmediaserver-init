@@ -3,7 +3,7 @@ case "$1" in
     configure)
                 group='plex'
                 if grep -q -E "$group(,.*|\b)" /etc/group; then
-                        echo 'Group plex exists procceding with installation'
+                        echo 'Group plex exists proceeding with installation'
                 else
                         echo 'Recreating user plex with group plex'
                         userdel plex
