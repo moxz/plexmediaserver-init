@@ -11,9 +11,11 @@ case "$1" in
                         echo 'Setting correct permissions on plexmediaserver home, (this will take  a long time depending on your library size!)'
                         chown plex:plex /var/lib/plexmediaserver/ -R
                 fi
-        update-rc.d plexmediaserver defaults
-        /etc/init.d/plexmediaserver stop
-        /etc/init.d/plexmediaserver start
+	rm /etc/default/plexmediaserver
+	rm /etc/init/plexmediaserver.conf
+        update-rc.d plexmediaserver-debian defaults
+        /etc/init.d/plexmediaserver-debian stop
+        /etc/init.d/plexmediaserver-debian start
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
