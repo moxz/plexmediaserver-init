@@ -2,7 +2,7 @@
 
 if [ -f /etc/os-release ]
 then
-        . /etc/os-release
+        source /etc/os-release
 	MAJOR_VERSION=$(echo $VERSION_ID|awk -F "." '{print $1}')
         if [ $ID == "ubuntu" ] 
         then
@@ -28,9 +28,9 @@ then
 		then 
 			echo "Unsupported Debian version"
 		elif [ $MAJOR_VERSION -eq 6  ]
-        	then	
+        	then
+                        echo "Debian version using sysvinit-style"	
 			source debian_sysvinit
-			echo "Debian version using sysvinit-style"
                 elif [ $MAJOR_VERSION -gt 7 ]
 		then
 			echo "Debian Version using systemd"
