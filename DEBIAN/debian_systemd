@@ -1,0 +1,37 @@
+#!/bin/sh
+case "$1" in
+        configure)
+                group='plex'
+                if grep -q -E "$group(,.*|\b)" /etc/group; then
+                        echo 'Group plex exists procceding with installation'
+                else
+                        echo 'Recreating user plex with group plex'
+                        userdel plex
+                        adduser --quiet --system --shell /bin/bash --home /var/lib/plexmediaserver plex --group
+                        echo 'Setting correct permissions on plexmediaserver home, (this will take time)'
+                        chown plex:plex /var/lib/plexmediaserver/ -R
+                fi
+                if [ -f /bin/systemctl ];
+                then
+                        rm /etc/default/plexmediaserver
+                        rm /etc/init.d/plexmediaserver
+                        systemctl enable plexmediaserver
+                        systemctl stop plexmediaserver
+                        systemctl start plexmediaserver
+                else
+                        update-rc.d plexmediaserver defaults
+                        /etc/init.d/plexmediaserver stop
+                        /etc/init.d/plexmediaserver start
+                fi
+                ;;
+
+        abort-upgrade|abort-remove|abort-deconfigure)
+                ;;
+
+        *)
+                echo "postinst called with unknown argument \`$1'" >&2
+                exit 1
+                ;;
+esac
+
+exit 0
