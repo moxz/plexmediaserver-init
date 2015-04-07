@@ -1,0 +1,9 @@
+Package: plexmediaserver
+Version: 0.9.11.17.1010-413b14e
+Architecture: amd64
+Maintainer: Tobias Hieta <tobias@hieta.se>
+Installed-Size: 290460
+Section: video
+Priority: extra
+Homepage: https://plex.tv
+Description: Plex organizes all of your personal media so you can easily access and enjoy it.

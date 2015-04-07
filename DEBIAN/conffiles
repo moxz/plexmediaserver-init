@@ -1,0 +1,3 @@
+/etc/default/plexmediaserver
+/etc/init/plexmediaserver.conf
+/etc/apt/sources.list.d/plexmediaserver.list
