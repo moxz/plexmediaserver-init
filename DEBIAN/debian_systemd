@@ -15,13 +15,14 @@ case "$1" in
                 then
                         rm /etc/default/plexmediaserver
                         rm /etc/init.d/plexmediaserver
-                        systemctl enable plexmediaserver
+                        rm /etc/init/debian.conf
+			systemctl enable plexmediaserver
                         systemctl stop plexmediaserver
                         systemctl start plexmediaserver
                 else
-                        update-rc.d plexmediaserver defaults
-                        /etc/init.d/plexmediaserver stop
-                        /etc/init.d/plexmediaserver start
+                        update-rc.d plexmediaserver-debian defaults
+                        /etc/init.d/plexmediaserver-debian stop
+                        /etc/init.d/plexmediaserver-debian start
                 fi
                 ;;
 
