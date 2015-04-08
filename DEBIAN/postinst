@@ -2,39 +2,46 @@
 
 if [ -f /etc/os-release ]
 then
-        source /etc/os-release
+	. /etc/os-release
 	MAJOR_VERSION=$(echo $VERSION_ID|awk -F "." '{print $1}')
-        if [ $ID == "ubuntu" ] 
-        then
+	if [ $ID == "ubuntu" ]
+	then
 		if [ $MAJOR_VERSION -lt 11 ]
 		then
 			echo "Unsupported Ubuntu version"
 		elif [ $MAJOR_VERSION -lt 14 ]
-                then
+		then
 			echo "Ubuntu version using upstart"
-			source ubuntu_upstart
+			source /var/lib/dpkg/info/plexmediaserver.ubuntu_upstart
 		elif [ $MAJOR_VERSION -eq 14 ]
 		then
-                	echo "Ubuntu version using upstart"
-			source ubuntu_upstart
+			echo "Ubuntu version using upstart"
+			source /var/lib/dpkg/info/plexmediaserver.ubuntu_upstart
 		elif [ $MAJOR_VERSION -gt 14 ]
 		then
 			echo "Ubuntu version using systemd"
-			source ubuntu_systemd
+			source /var/lib/dpkg/info/plexmediaserver.ubuntu_systemd
 		fi
-        elif [ $ID == "debian" ]
+	elif [ $ID == "debian" ]
 	then
 		if [ $MAJOR_VERSION -lt 6 ]
-		then 
+		then
 			echo "Unsupported Debian version"
-		elif [ $MAJOR_VERSION -eq 6  ]
-        	then
-                        echo "Debian version using sysvinit-style"	
-			source debian_sysvinit
-                elif [ $MAJOR_VERSION -gt 7 ]
+		elif [ $MAJOR_VERSION -lt 7  ]
+		then
+			echo "Debian version using sysvinit-style"      
+			source /var/lib/dpkg/info7plexmediaserver.debian_sysvinit
+		elif [ $MAJOR_VERSION -eq 7  ]
+		then
+			echo "Debian version using sysvinit-style"      
+			source /var/lib/dpkg/info/plexmediaserver.debian_sysvinit
+		elif [ $MAJOR_VERSION -gt 7 ]
 		then
 			echo "Debian Version using systemd"
-			source debian_systemd
+			source /var/lib/dpkg/info/plexmediaserver.debian_systemd
 		fi
 	fi
 fi
+
+
+echo "something went wrong like realy wrong almost like Sega hardware division wrong"
