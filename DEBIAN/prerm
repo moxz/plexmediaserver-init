@@ -1,8 +1,25 @@
 #!/bin/sh
 set -e
+if [ -e "/etc/init.d/plexmediaserver-debian/" ]; then
+        # Stop fails if not running
+        /etc/init.d/plexmediaserver-debian stop
+        update-rc.d plexmediaserver-debian remove
+fi
+
+if [ -f /bin/systemctl ]; then
+        # stop fails if not running
+        systemctl stop plexmediaserver
+        systemctl disable plexmediaserver
+fi
+
 # Automatically added by dh_installinit
 if [ -e "/etc/init/plexmediaserver.conf" ]; then
 	# stop fails if not running
 	stop plexmediaserver || :
+fi
+if [ -e "/etc/init.d/plexmediaserver-debian/" ]; then
+	# Stop fails if not running
+        /etc/init.d/plexmediaserver-debian stop
+        update-rc.d plexmediaserver-debian remove
 fi
 # End automatically added section
